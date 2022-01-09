@@ -4,7 +4,7 @@ import { deleteUser, EmailAuthProvider } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SaveLogin } from "./AsyncStorage";
+import { SaveLogin } from "../Local Storage/AsyncStorage";
 import {
   collection,
   doc,
@@ -185,12 +185,13 @@ export const createnewgig = (data) => {
 
 
 
-export const getgigsdata = async (setgigs) => {
+export const getgigsdata = async (setgigs,setloading) => {
   const snap = await getDoc(doc(db, "Doctors", "email"));
   if (snap.exists()) {
-    alert(JSON.stringify(snap.data()).gig);
-    console.log("Document data:", snap.data());
+    // alert(JSON.stringify(snap.data()));
+    // console.log("Document data:", snap.data());
     setgigs(snap.data().gig)
+    setloading(false)
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");

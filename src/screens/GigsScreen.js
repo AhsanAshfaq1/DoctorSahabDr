@@ -1,37 +1,58 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, Button } from "react-native";
-import GigsComponent from "../components/GigsComponent";
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Button,
+  ActivityIndicator,
+  FlatList
+} from "react-native";
+import GigsComponent from "../components/ListofGigsComponent";
+import { getgigsdata } from "../DataBase/firestore";
 
-const Data = [
-  "Dr.Nimra Zaffar",
-  require('../../assets/image.jpg'),
-  "sergon",
-  "$543",
-  "5am - 10pm Weekdays",
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum molestias suscipit accusamus. Eaque nulla mollitia, doloremque commodi, suscipit eligendi minima repudiandae rerum quo velit maiores nobis atque est sint laboriosam.",
-  "10street hsotel cdjsgjs",
-]
+const GigsScreen = ({ navigation }) => {
+  const [isLoading, setLoading] = React.useState(true);
+  const [gigs, setgigs] = useState([]);
 
-
-
-const GigsScreen = ({navigation}) => {
-
-  // const [Data, setData] = useState([])
+  getgigsdata(setgigs ,setLoading)
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          padding: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" color="blue" />
+        <Text style={{ fontSize: 32 }}>Loading</Text>
+      </View>
+    );
+  }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-      <Text style={styles.profilename}>{Data.name} </Text>
-        <GigsComponent data={Data} action={()=>{navigation.navigate('Gig',Data)}}/>
-        <Button 
-        title="Profile"
-        onPress={() => {navigation.navigate('NewGig')}}
-        />
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <FlatList
+        data={gigs}
+        renderItem={(e)=>
+          <GigsComponent data={e.item} action={()=>{navigation.navigate('ViewGigs',gigs)}}/>
+        } 
+      />   
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#FFF",
+    height: Dimensions.get("window").height,
+  },
   profilename: {
     fontWeight: "bold",
     alignSelf: "center",

@@ -1,266 +1,75 @@
 import React from "react";
-import {
-  View,
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-  Button,
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import { showLocation } from "react-native-map-link";
+import {Text,View, SafeAreaView, StyleSheet,Dimensions, ScrollView ,Image ,TouchableOpacity} from "react-native";
 
-const openmaps = () => {
-  showLocation({
-    latitude: 33.7028,
-    longitude: 73.0533,
-    sourceLatitude: 33.6518, // optionally specify starting location for directions
-    sourceLongitude: 73.1566, // not optional if sourceLatitude is specified
-    title: "PIMS Hospital", // optional
-    googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
-    googlePlaceId: "ChIJGVtI4by3t4kRr51d_Qm_x58", // optionally specify the google-place-id
-    alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
-    dialogTitle: "This is the dialog Title", // optional (default: 'Open in Maps')
-    dialogMessage: "This is the amazing dialog Message", // optional (default: 'What app would you like to use?')
-    cancelText: "This is the cancel button text", // optional (default: 'Cancel')
-    appsWhiteList: ["google-maps"], // optionally you can set which apps to show (default: will show all supported apps installed on device)
-    naverCallerName: "com.example.myapp", // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
-    // appTitles: { 'google-maps': 'My custom Google Maps title' }, // optionally you can override default app titles
-    // app: 'uber',  // optionally specify specific app to use
-    directionsMode: "walk", // optional, accepted values are 'car', 'walk', 'public-transport' or 'bike'
-  });
-};
 
-const ProfileScreen = ({ navigation, route }) => {
-  const data = route.params;
+const ProfileScreen = ({navigation}) => {
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}> 
       <ScrollView>
-        <Image style={styles.profilepicture} source={data[1]} />
-        <Text style={styles.ProfileName}>{data[0]}</Text>
-        <Text style={styles.designation}>{data[2]}</Text>
-
-        <View style={styles.profileview}>
-          <View style={styles.achievements}>
-            <Icon
-              style={{ alignSelf: "center" }}
-              raised
-              name="user-injured"
-              type="font-awesome"
-              color="#f50"
-              size={30}
-            />
-            <Text style={styles.achievementtext}>Patients</Text>
-            <Text style={styles.achievementtext2}>900+</Text>
-          </View>
-          <View style={styles.achievements}>
-            <Icon
-              style={{ alignSelf: "center" }}
-              raised
-              name="medal"
-              type="font-awesome"
-              color="#f50"
-              size={30}
-            />
-            <Text style={styles.achievementtext}>Experience</Text>
-            <Text style={styles.achievementtext2}>13yrs+</Text>
-          </View>
-          <View style={styles.achievements}>
-            <Icon
-              style={{ alignSelf: "center" }}
-              raised
-              name="star"
-              type="font-awesome"
-              color="#f50"
-              size={30}
-            />
-            <Text style={styles.achievementtext}>Rating</Text>
-            <Text style={styles.achievementtext2}>Avg.4.5</Text>
-          </View>
+       <View >
+          <Image
+            style={styles.profilepic} 
+            source={require('../../assets/image.jpg')}
+          />
+          <Text style={styles.profilename}>Name</Text>
+          <View style={styles.holder}>
+        <TouchableOpacity style={styles.btn}>
+          <Text style={styles.btntext}>Account</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn}>
+          <Text style={styles.btntext}>Help</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{height: 50,width:'100%',justifyContent:"center" }}>
+          <Text style={styles.btntext}>About</Text>
+        </TouchableOpacity>
         </View>
-
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingTop: 10,
-              paddingHorizontal: 20,
-            }}
-          >
-            <Icon
-              style={styles.infoicons}
-              raised
-              name="address-card"
-              type="font-awesome"
-              color="#f50"
-              size={25}
-            />
-            <Text style={styles.ProfileName}>About Doctor</Text>
-          </View>
-          <Text style={styles.designation}>{data[5]}</Text>
-        </View>
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingTop: 10,
-              paddingHorizontal: 20,
-            }}
-          >
-            <Icon
-              style={styles.infoicons}
-              raised
-              name="calendar-day"
-              type="font-awesome"
-              color="#f50"
-              size={25}
-            />
-            <Text style={styles.ProfileName}>Timings</Text>
-          </View>
-          <Text style={styles.designation}>{data[4]}</Text>
-        </View>
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingTop: 10,
-              paddingHorizontal: 20,
-            }}
-          >
-            <Icon
-              style={styles.infoicons}
-              raised
-              name="location-arrow"
-              type="font-awesome"
-              color="#f50"
-              size={25}
-            />
-            <Text style={styles.ProfileName}>Address</Text>
-          </View>
-          <Text style={styles.designation}>{data[6]}</Text>
-          <TouchableOpacity
-            style={{
-              width: 150,
-              height: 50,
-              alignSelf: "center",
-              borderRadius: 15,
-              justifyContent: "center",
-              marginVertical: 10,
-              backgroundColor: "#f50",
-            }}
-            onPress={() => openmaps()}
-          >
-            <Text style={{ alignSelf: "center", fontWeight: "bold" }}>
-              Open Location
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingTop: 10,
-              paddingHorizontal: 20,
-            }}
-          >
-            <Icon
-              style={styles.infoicons}
-              raised
-              name="bookmark"
-              type="font-awesome"
-              color="#f50"
-              size={25}
-            />
-            <Text style={styles.ProfileName}>Bookings</Text>
-          </View>
-          <Text style={styles.designation}>{data[3]}</Text>
-          <TouchableOpacity
-            style={{
-              width: 150,
-              height: 50,
-              alignSelf: "center",
-              borderRadius: 15,
-              justifyContent: "center",
-              marginVertical: 10,
-              backgroundColor: "#f50",
-            }}
-          >
-            <Text style={{ alignSelf: "center", fontWeight: "bold" }}>
-              {" "}
-              Book ME{" "}
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
-      {/* </ImageBackground> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#EBEBEB",
+  container:{
+    backgroundColor:"#FFF",
+    height:Dimensions.get("window").height
   },
-  backgroundimage: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+  profilepic:{
+    height:100,
+    width:100,
+    borderRadius:100,
+    alignSelf:"center",
+    marginTop:20,
   },
-  profilepicture: {
-    marginTop: 20,
-    width: 300,
-    height: 200,
-    borderRadius: 15,
-    alignSelf: "center",
-  },
-
-  profileview: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
-
-  achievements: {
-    backgroundColor: "#FFFF",
-    marginTop: 10,
-    width: 100,
-    height: 120,
-    // borderWidth: 1,
-    // borderColor: "#FFFF",
-    borderRadius: 15,
-    justifyContent: "center",
-  },
-
-  achievementtext: {
-    alignSelf: "center",
-  },
-
-  achievementtext2: {
-    alignSelf: "center",
+  profilename: {
     fontWeight: "bold",
+    alignSelf: "center",
+    fontSize: 30,
+    marginTop:10
   },
-  infoicons: {
-    marginTop: 10,
-    alignSelf: "flex-start",
-    marginRight: -10,
+  holder:{
+    backgroundColor:"#f8f8f8",
+    maxWidth: Dimensions.get("window").width,
+    height: 150,
+    borderWidth: 0.9,
+    borderRadius: 15,
+    borderColor: "#cfcfcf",
+    marginLeft: 20,
+    marginRight: 20,
+    marginVertical: 10,
   },
-  ProfileName: {
-    paddingTop: 10,
-    paddingHorizontal: 20,
-    fontSize: 28,
-    fontWeight: "bold",
-    alignSelf: "flex-start",
+  btn:{
+    height: 50,
+    width:'100%',
+    borderBottomWidth: 0.9,
+    justifyContent:"center",
+    borderColor: "#cfcfcf",
   },
-  designation: {
-    fontWeight: "300",
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    alignSelf: "flex-start",
-  },
+  btntext:{
+    fontSize:18,
+    paddingLeft: 10,
+  }
 });
 
 export default ProfileScreen;
