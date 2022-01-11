@@ -1,58 +1,78 @@
-import React from "react";
+import { React ,useState , useEffect} from "react";
 import {
   Text,
   View,
   SafeAreaView,
   StyleSheet,
   Dimensions,
+  ActivityIndicator,
   ScrollView,
-  FlatList
+  FlatList,
 } from "react-native";
 import BookingComponent from "../components/ListofBookingsComponent";
+import { getAppointments } from "../DataBase/firestore";
 
-const Data = [
-  "Dr.Nimra Zaffar",
-  require("../../assets/image.jpg"),
-  "sergon",
-  "$543",
-  "5am - 10pm Weekdays",
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum molestias suscipit accusamus. Eaque nulla mollitia, doloremque commodi, suscipit eligendi minima repudiandae rerum quo velit maiores nobis atque est sint laboriosam.",
-  "10street hsotel cdjsgjs",
-];
+// const Data = [
+//   "Dr.Nimra Zaffar",
+//   require("../../assets/image.jpg"),
+//   "sergon",
+//   "$543",
+//   "5am - 10pm Weekdays",
+//   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum molestias suscipit accusamus. Eaque nulla mollitia, doloremque commodi, suscipit eligendi minima repudiandae rerum quo velit maiores nobis atque est sint laboriosam.",
+//   "10street hsotel cdjsgjs",
+// ];
 
 const BookingsScreen = ({ navigation }) => {
-  // const [isLoading, setLoading] = React.useState(true);
-  // const [bookings, setbookings] = React.useState([]);
-  // React.useEffect(() => {
-  //   getbookings(setbookings, setLoading);
-  // }, []);
-  // if (isLoading) {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         padding: 20,
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       <ActivityIndicator />
-  //       <Text style={{ fontSize: 32 }}>Loading</Text>
-  //     </View>
-  //   );
-  // }
+  const [AppointmentList, setAppointmentList] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    getAppointments(setAppointmentList, setLoading);
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // alert("On Screen of Gig");
+      setLoading(true);
+      getAppointments(setAppointmentList, setLoading);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" color="blue" />
+        <Text style={{ fontSize: 28 }}>Checking Appointments</Text>
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView>
-      {/* <FlatList
-        data={bookings}
+      <FlatList
+        style={{ marginBottom: "35%" }}
+        data={AppointmentList}
         renderItem={(e) => (
           <BookingComponent
-            data={Data}
-            action={() => navigation.navigate("ViewBookings", Data)}
+            data={e.item}
+            navigation={navigation}
+            action={() =>
+              navigation.navigate("ViewBookings", {
+                data: e.item,
+                docdata: doctor,
+              })
+            }
           />
         )}
         keyExtractor={(data, index) => index.toString()}
-      /> */}
+      />
     </SafeAreaView>
   );
 };

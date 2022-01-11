@@ -188,8 +188,8 @@ export const addWithRandomID = (data, navigation) => {
   try {
     const collection_Users = collection(db, "Gigs");
     addDoc(collection_Users, data);
-    navigation.goBack();
     alert("Gig added Successfully");
+    navigation.pop();
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -212,12 +212,12 @@ export const getgigsdata = async (setgigs, setLoading) => {
   try {
     let q = query(
       collection(db, "Gigs"),
-      where("Doctor_id", "==", "usamaYAK1@outlook.com")
+      where("Doctor_id", "==", auth.currentUser.email)
     );
     const querySnapshot = await getDocs(q);
     let gigarr = [];
     querySnapshot.forEach((data) => {
-      gigarr.push(data.data());
+      gigarr.push({ data: data.data(), id: data.id });
     });
     setgigs(gigarr);
     setLoading(false);
@@ -226,25 +226,29 @@ export const getgigsdata = async (setgigs, setLoading) => {
   }
 };
 
-export const getdoctordata = async (setdoctor) => {
-  const snap = await getDoc(doc(db, "Doctors", "ahsanashfaq01@icloud.com"));
-  if (snap.exists()) {
-    // alert(JSON.stringify(snap.data()));
-    // console.log("Document data:", snap.data());
-    setdoctor(snap.data());
-    // setloading(false)
-  } else {
-    // doc.data() will be undefined in this case
-    console.log("No such document!");
+export const getdoctordata = async (setdoc, setLoading) => {
+  try {
+    const snap = await getDoc(
+      doc(collection(db, "Doctors"), auth.currentUser.email)
+    );
+
+    if (snap.exists()) {
+      setdoc(snap.data());
+      setLoading(false);
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  } catch (e) {
+    console.log("Catch an error: ", e);
   }
 };
-
 
 export const getbookings = async (setgigs, setLoading) => {
   try {
     let q = query(
       collection(db, "Gigs"),
-      where("Doctor_id", "==", "ahsanashfaq01@icloud.com")
+      where("Doctor_id", "==", auth.currentUser.email)
     );
     const querySnapshot = await getDocs(q);
     let gigarr = [];
@@ -280,7 +284,7 @@ export const SearchGigs = async () => {
   try {
     const q = query(
       collection(db, "Gigs"),
-      where("Doctor_id", "==", "ahsanashfaq01@icloud.com")
+      where("Doctor_id", "==", auth.email)
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((data) => {
@@ -290,4 +294,69 @@ export const SearchGigs = async () => {
   } catch (e) {
     console.log("Catch an error: ", e);
   }
+};
+
+export const deleteGig = (gig_id, setgigs, setLoading) => {
+  deleteDoc(doc(db, "Gigs", gig_id)).then(
+    (res) => alert("Gig Delted Successfully"),
+    getgigsdata(setgigs, setLoading)
+  );
+};
+
+export const getAppointments = async (setAppointmentsList, setLoading) => {
+  try {
+    const q = query(
+      collection(db, "Appointments"),
+      where("Doctor_id", "==", auth.currentUser.email)
+    );
+    const querySnapshot = await getDocs(q);
+
+    let Appointments_array = [];
+    querySnapshot.forEach((data) => {
+      Appointments_array.push(data.data());
+    });
+    setAppointmentsList(Appointments_array);
+    setLoading(false);
+  } catch (e) {
+    console.log("Catch an error: ", e);
+  }
+};
+
+export const getClientDetails = async (
+  Client_id,
+  setClientData,
+  setLoading
+) => {
+  const docSnap = await getDoc(doc(db, "Clients", Client_id));
+  setClientData(docSnap.data());
+  setLoading(false);
+};
+
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+export const uploadImageAsync = async (uri) => {
+  // Why are we using XMLHttpRequest? See:
+  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError("Network request failed"));
+    };
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+
+  const fileRef = ref(getStorage(), uuid.v4());
+  alert("Hereeeeeeeeeeeeeeee");
+  const result = await uploadBytes(fileRef, blob);
+
+  // We're done with the blob, close and release it
+  blob.close();
+
+  return await getDownloadURL(fileRef);
 };

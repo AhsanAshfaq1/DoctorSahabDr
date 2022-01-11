@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const DisplayBookingComponent = ({ data, action }) => {
+const DisplayBookingComponent = ({ data,action }) => {
   return (
     <TouchableOpacity
       style={styles.gigscontainer}
@@ -18,7 +18,7 @@ const DisplayBookingComponent = ({ data, action }) => {
     >
       <View style={{ alignItems: "center", flexDirection: "row", flex: 1 }}>
         <View>
-          <Image style={styles.profilepicture} source={data[1]} />
+          {/* <Image style={styles.profilepicture} source={data[1]} /> */}
         </View>
         <View
           style={{
@@ -41,7 +41,7 @@ const DisplayBookingComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Patient Name</Text>
           </View>
 
-          <Text style={styles.textdata}>{data[2]}</Text>
+          <Text style={styles.textdata}>{data.Client_Name}</Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -52,10 +52,10 @@ const DisplayBookingComponent = ({ data, action }) => {
               color="#f50"
               size={18}
             />
-            <Text style={styles.texttitle}>Booked Slot</Text>
+            <Text style={styles.texttitle}>Problem</Text>
           </View>
 
-          <Text style={styles.textdata}>{data[3]} </Text>
+          <Text style={styles.textdata}>{data.Problem} </Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -66,10 +66,10 @@ const DisplayBookingComponent = ({ data, action }) => {
               color="#f50"
               size={18}
             />
-            <Text style={styles.texttitle}>Payment</Text>
+            <Text style={styles.texttitle}>Description</Text>
           </View>
 
-          <Text style={styles.textdata}>{data[4]}</Text>
+          <Text style={styles.textdata}>{data.Description}</Text>
         </View>
       </View>
     </TouchableOpacity>

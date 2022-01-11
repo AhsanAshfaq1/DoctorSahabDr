@@ -15,9 +15,6 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { showLocation } from "react-native-map-link";
 
 
-import {SearchGigs, getgigsdata } from "../DataBase/firestore";
-
-
 const openmaps = () => {
   showLocation({
     latitude: 33.7028,

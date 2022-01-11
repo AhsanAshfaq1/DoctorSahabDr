@@ -10,12 +10,14 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import GigsScreen from "./src/screens/GigsScreen";
 import NewGigScreen from "./src/screens/NewGigScreen";
 import EditGigScreen from "./src/screens/EditGigScreen";
+import ViewGigComponent from "./src/screens/ViewGigComponent";
 import ChatScreen from "./src/screens/ChatScreen";
 import CallScreen from "./src/screens/CallScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import BookingsScreen from "./src/screens/BookingsScreen";
 import { SignOut } from "./src/DataBase/firestore";
 import EditProfile from "./src/screens/EditProfile";
+import { Chats } from "./Components/PostLogin/Chats";
 
 const GigStack = createStackNavigator();
 function GigStackScreen() {
@@ -56,7 +58,7 @@ function GigStackScreen() {
           },
         })}
       />
-      {/* <GigStack.Screen name="ViewGig" component={ViewGigComponent} /> */}
+      <GigStack.Screen name="ViewGig" component={ViewGigComponent} />
     </GigStack.Navigator>
   );
 }
@@ -116,24 +118,27 @@ function ProfileStackScreen() {
           ),
         }}
       />
-      <ProfileStack.Screen name="EditProfile" component={EditProfile} 
-      options={{
-        tabBarLabel: "Profile",
-        tabBarShowLabel: false,
-        headerRight: () => (
-          <Button
-            onPress={() => navigation.navigate("CreateGig")}
-            title="New"
-          />
-        )
-      }}/>
-      </ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarShowLabel: false,
+          headerRight: () => (
+            <Button
+              onPress={() => navigation.navigate("CreateGig")}
+              title="New"
+            />
+          ),
+        }}
+      />
+    </ProfileStack.Navigator>
   );
 }
 
 const Bottom_Tab = createBottomTabNavigator();
 
-export function Tabs({ navigation }) {
+export function Tabs({ navigation, route }) {
   return (
     <Bottom_Tab.Navigator
       initialRouteName="Bookings"
@@ -155,7 +160,10 @@ export function Tabs({ navigation }) {
 
       <Bottom_Tab.Screen
         name="Chat"
-        component={ChatScreen}
+        component={Chats}
+        initialParams={{
+          MyDetails: route.params.MyDetails,
+        }}
         options={{
           tabBarShowLabel: false,
           headerShown: false,
@@ -183,7 +191,7 @@ export function Tabs({ navigation }) {
         }}
       />
 
-      <Bottom_Tab.Screen
+      {/* <Bottom_Tab.Screen
         name="Calls"
         component={CallScreen}
         options={{
@@ -194,7 +202,7 @@ export function Tabs({ navigation }) {
             <MaterialCommunityIcons name="phone" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
 
       <Bottom_Tab.Screen
         name="Profile"
@@ -202,7 +210,7 @@ export function Tabs({ navigation }) {
         options={{
           tabBarLabel: "Profile",
           tabBarShowLabel: false,
-          headerShown:false,
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),

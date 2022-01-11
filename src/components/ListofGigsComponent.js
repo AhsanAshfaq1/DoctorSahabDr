@@ -5,14 +5,37 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  Alert
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { deleteGig } from "../DataBase/firestore";
 
-const DisplayGigsComponent = ({ data, action }) => {
+const DisplayGigsComponent = ({
+  navigation,
+  data,
+  action,
+  setLoading,
+  setgigs,
+}) => {
   return (
     <TouchableOpacity
       style={styles.gigscontainer}
+      onLongPress={() => {
+        Alert.alert("Delete Gig?", "Click YES,If you want to delete this GIG", [
+          {
+            text: "No",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {
+            text: "Yes",
+            onPress: () => {
+              setLoading(true);
+              deleteGig(data.id, setgigs, setLoading);
+            },
+          },
+        ]);
+      }}
       onPress={() => {
         action();
       }}
@@ -45,7 +68,7 @@ const DisplayGigsComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Gig Name</Text>
           </View>
 
-          <Text style={styles.textdata}>{data.Title}</Text>
+          <Text style={styles.textdata}>{data.data.Title}</Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -59,7 +82,7 @@ const DisplayGigsComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Price</Text>
           </View>
 
-          <Text style={styles.textdata}>{data.Cost} </Text>
+          <Text style={styles.textdata}>{data.data.Cost} </Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -73,7 +96,7 @@ const DisplayGigsComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Timings</Text>
           </View>
 
-          <Text style={styles.textdata}>{data.Time}</Text>
+          <Text style={styles.textdata}>{data.data.Time}</Text>
         </View>
       </View>
     </TouchableOpacity>

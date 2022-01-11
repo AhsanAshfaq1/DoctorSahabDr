@@ -132,6 +132,7 @@ export const ServiceStyles = StyleSheet.create({
   GigDescriptionContainer: {
     backgroundColor: "white",
     elevation: 5,
+    width: "100%",
     borderRadius: 20,
     padding: "5%",
   },

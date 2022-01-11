@@ -60,7 +60,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Tabs}
-          initialParams={{ Email: UserEmail }}
+          initialParams={{ Email: UserEmail, MyDetails: CurrentUser }}
         />
       </Stack.Navigator>
     </NavigationContainer>

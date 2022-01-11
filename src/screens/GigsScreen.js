@@ -13,7 +13,7 @@ import {
 import GigsComponent from "../components/ListofGigsComponent";
 import { getdoctordata, getgigsdata } from "../DataBase/firestore";
 
-const GigsScreen = ({ navigation }) => {
+const GigsScreen = ({ navigation, route }) => {
   const [isLoading, setLoading] = React.useState(true);
   const [gigs, setgigs] = useState([]);
   const [doctor, setdoctor] = React.useState();
@@ -21,6 +21,16 @@ const GigsScreen = ({ navigation }) => {
     getdoctordata(setdoctor);
     getgigsdata(setgigs, setLoading);
   }, []);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // alert("On Screen of Gig");
+      setLoading(true);
+      getgigsdata(setgigs, setLoading);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   if (isLoading) {
     return (
       <View
@@ -45,6 +55,9 @@ const GigsScreen = ({ navigation }) => {
         renderItem={(e) => (
           <GigsComponent
             data={e.item}
+            setgigs={setgigs}
+            setLoading={setLoading}
+            navigation={navigation}
             action={() => {
               navigation.navigate("ViewGig", { data: e.item, docdata: doctor });
             }}

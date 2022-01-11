@@ -9,11 +9,12 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Button
+  Button,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useValidation } from "react-native-form-validator";
+import { uploadImageAsync } from "../DataBase/firestore";
 
 const EditProfileScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -39,9 +40,9 @@ const EditProfileScreen = ({ navigation }) => {
 
     if (!_image.cancelled) {
       setImage(_image.uri);
+      await uploadImageAsync(_image.uri);
     }
   };
-
 
   const _onPressButton = () => {
     validate({
@@ -50,10 +51,9 @@ const EditProfileScreen = ({ navigation }) => {
       about: { minlength: 5, maxlength: 100, required: true },
       experience: { required: true },
       patients: { required: true },
-      rate: {required: true },
+      rate: { required: true },
     });
   };
-
 
   return (
     <SafeAreaView>
@@ -121,7 +121,6 @@ const EditProfileScreen = ({ navigation }) => {
             </View>
             <View style={styles.styleBottom}></View>
           </View>
-
 
           <View style={styles.inputcontainer}>
             <View style={{ flexDirection: "row" }}>
@@ -212,6 +211,5 @@ const styles = StyleSheet.create({
     color: "red",
   },
 });
-
 
 export default EditProfileScreen;

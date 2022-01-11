@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
@@ -9,72 +10,65 @@ import {
   Dimensions,
   Button,
   Image,
+  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
 import { useValidation } from "react-native-form-validator";
-import { addWithRandomID } from "../DataBase/firestore";
+import { addWithRandomID, getdoctordata } from "../DataBase/firestore";
 
-const NewGigScreen = ({ navigation }) => {
-  const [image, setImage] = useState(null);
+const NewGigScreen = ({ navigation, route }) => {
   const [title, settitle] = useState("");
   const [des, setdes] = useState("");
   const [time, settime] = useState("");
   const [booking, setbooking] = useState("");
 
-  const { validate, getErrorMessages } = useValidation({
-    state: { image, title, des, time, booking },
-  });
+  const [isLoading, setLoading] = React.useState(true);
+  const [doctor, setdoctor] = React.useState([]);
+
+  useEffect(() => {
+    getdoctordata(setdoctor, setLoading);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          padding: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator />
+        <Text style={{ fontSize: 32 }}>Loading</Text>
+      </View>
+    );
+  }
 
   const _onPressButton = () => {
-    validate({
-      image: { image: true },
-      title: { minlength: 3, maxlength: 25, required: true },
-      des: { minlength: 3, maxlength: 100, required: true },
-      time: { minlength: 3, maxlength: 25, required: true },
-      booking: { minlength: 3, maxlength: 100, required: true },
-    });
-    if (validate) {
-      // const data = {title:title,des:des,time:time,booking:booking}
-      const data = {Doctor_Image:"sdsads", Doctor_id:"usamaYAK1@outlook.com",Doctor_Designation:"Doctor", Title: title, Description: des, Time: time, Cost: booking };
-      addWithRandomID(data,navigation);
+    // if (validate) {
+    // const data = {title:title,des:des,time:time,booking:booking}
+    const data = {
+      Doctor_id: getAuth().currentUser.email,
+      Doctor_Name: doctor.Name,
+      Doctor_Designation: doctor.Designation,
+      Doctor_Image: doctor.profileurl,
+      Title: title,
+      Description: des,
+      Time: time,
+      Cost: booking,
+    };
+    addWithRandomID(data, navigation);
 
-    }
+    // }
+    // alert(JSON.stringify(doctor));
+    // alert(JSON.stringify(data));
   };
 
-  const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(JSON.stringify(_image));
-
-    if (!_image.cancelled) {
-      setImage(_image.uri);
-    }
-  };
   return (
     <ScrollView style={styles.maincontainer}>
       <SafeAreaView>
         <View>
-          <View style={styles.container}>
-            {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 150, height: 150 }}
-              />
-            )}
-            <View style={styles.uploadBtnContainer}>
-              <TouchableOpacity onPress={addImage} style={styles.uploadBtn}>
-                <Text>{image ? "Edit" : "Upload"} Image</Text>
-                <AntDesign name="camera" size={20} color="black" />
-              </TouchableOpacity>
-            </View>
-          </View>
           <View style={styles.inputcontainer}>
             <View style={{ flexDirection: "row" }}>
               <Text style={styles.textheading}>Gig Title</Text>
@@ -122,7 +116,6 @@ const NewGigScreen = ({ navigation }) => {
             </View>
             <View style={styles.styleBottom}></View>
           </View>
-          <Text style={styles.error}>{getErrorMessages()}</Text>
 
           <Button title="Save " onPress={_onPressButton} />
         </View>
