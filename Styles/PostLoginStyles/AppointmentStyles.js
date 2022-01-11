@@ -1,0 +1,147 @@
+import { StyleSheet } from "react-native";
+export const AppointmentDetailStyles = StyleSheet.create({
+  container: {
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    padding: "5%",
+  },
+  DrDetails: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  DrName: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: "2%",
+  },
+  DrDesignation: {
+    fontSize: 16,
+    color: "grey",
+    alignSelf: "flex-start",
+  },
+  Achievements_Container: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: "5%",
+    width: "100%",
+  },
+  Achievements: {
+    backgroundColor: "white",
+    width: "25%",
+    aspectRatio: 1 / 1.25,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    elevation: 5,
+  },
+  Achievement_Text: {
+    fontWeight: "bold",
+  },
+  GigDescriptionContainer: {
+    backgroundColor: "white",
+    elevation: 50,
+    borderRadius: 20,
+    padding: "5%",
+    width: "100%",
+    marginVertical: "2%",
+  },
+  Headings_Text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginVertical: "2%",
+    textAlign: "center",
+  },
+  CostContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    backgroundColor: "white",
+    elevation: 50,
+    borderRadius: 15,
+    paddingHorizontal: "5%",
+    marginVertical: "5%",
+  },
+  CostText: {
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+  CostPrice: {
+    fontSize: 18,
+  },
+  BookNow: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    alignSelf: "center",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: "5%",
+    backgroundColor: "blue",
+  },
+  BookButtonText: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "white",
+  },
+  BookingDetails: {
+    backgroundColor: "white",
+    width: "100%",
+    borderRadius: 15,
+    elevation: 10,
+    alignItems: "center",
+    paddingVertical: 15,
+  },
+});
+
+export const BookingStyles = StyleSheet.create({
+  container: {
+    elevation: 10,
+    backgroundColor: "white",
+    borderRadius: 15,
+    width: "95%",
+    alignSelf: "center",
+    padding: 15,
+    marginVertical: "2%",
+  },
+  DrDetails: { flexDirection: "row", justifyContent: "space-between" },
+  DrName: {
+    fontSize: 22,
+    fontWeight: "bold",
+    alignSelf: "flex-start",
+  },
+  DrDesignation: {
+    fontSize: 16,
+    color: "grey",
+    alignSelf: "flex-start",
+  },
+  Problem: { flexDirection: "row", justifyContent: "space-between" },
+  ProblemHeading: {
+    fontSize: 18,
+    fontWeight: "bold",
+    alignSelf: "flex-start",
+  },
+  ProblemText: {
+    fontSize: 14,
+    color: "grey",
+    alignSelf: "flex-start",
+  },
+  ChatButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    backgroundColor: "blue",
+  },
+  ChatButtonText: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "white",
+  },
+});

@@ -14,7 +14,8 @@ const ProfileScreen = ({navigation}) => {
           />
           <Text style={styles.profilename}>Name</Text>
           <View style={styles.holder}>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} onPress={()=> navigation.navigate('EditProfile')}>
+
           <Text style={styles.btntext}>Account</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn}>

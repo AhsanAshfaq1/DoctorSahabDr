@@ -14,6 +14,10 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { showLocation } from "react-native-map-link";
 
+
+import {SearchGigs, getgigsdata } from "../DataBase/firestore";
+
+
 const openmaps = () => {
   showLocation({
     latitude: 33.7028,
@@ -36,14 +40,15 @@ const openmaps = () => {
 };
 
 const ViewGigComponent= ({route}) => {
-  const data = route.params;
+  
+  const {data,docdata} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Image style={styles.profilepicture} source={data[1]} />
-        <Text style={styles.ProfileName}>{data[0]}</Text>
-        <Text style={styles.designation}>{data[2]}</Text>
+        {/* <Image style={styles.profilepicture} source={data} /> */}
+        <Text style={styles.ProfileName}>{data.Doctor_Name}</Text>
+        <Text style={styles.designation}>{data.Doctor_Designation}</Text>
 
         <View style={styles.profileview}>
           <View style={styles.achievements}>
@@ -56,7 +61,7 @@ const ViewGigComponent= ({route}) => {
               size={30}
             />
             <Text style={styles.achievementtext}>Patients</Text>
-            <Text style={styles.achievementtext2}>900+</Text>
+            <Text style={styles.achievementtext2}>{docdata.Patients}+</Text>
           </View>
           <View style={styles.achievements}>
             <Icon
@@ -68,7 +73,7 @@ const ViewGigComponent= ({route}) => {
               size={30}
             />
             <Text style={styles.achievementtext}>Experience</Text>
-            <Text style={styles.achievementtext2}>13yrs+</Text>
+            <Text style={styles.achievementtext2}>{docdata.Experience}yrs+</Text>
           </View>
           <View style={styles.achievements}>
             <Icon
@@ -80,7 +85,7 @@ const ViewGigComponent= ({route}) => {
               size={30}
             />
             <Text style={styles.achievementtext}>Rating</Text>
-            <Text style={styles.achievementtext2}>Avg.4.5</Text>
+            <Text style={styles.achievementtext2}>Avg.{docdata.Rating}</Text>
           </View>
         </View>
 
@@ -102,7 +107,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>About Doctor</Text>
           </View>
-          <Text style={styles.designation}>{data[5]}</Text>
+          <Text style={styles.designation}>{data.Description}</Text>
         </View>
         <View>
           <View
@@ -122,7 +127,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>Timings</Text>
           </View>
-          <Text style={styles.designation}>{data[4]}</Text>
+          <Text style={styles.designation}>{data.Time}</Text>
         </View>
         <View>
           <View
@@ -142,7 +147,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>Address</Text>
           </View>
-          <Text style={styles.designation}>{data[6]}</Text>
+          <Text style={styles.designation}>{data.Cost}</Text>
           <TouchableOpacity
             style={{
               width: 150,
@@ -178,7 +183,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>Bookings</Text>
           </View>
-          <Text style={styles.designation}>{data[3]}</Text>    
+          <Text style={styles.designation}>{data.Cost}</Text>    
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,47 +1,31 @@
-import React, { useState, useEffect } from "react";
+import { React, useState } from "react";
 import {
-  SafeAreaView,
-  ScrollView,
-  View,
   Text,
-  TextInput,
+  View,
+  SafeAreaView,
   StyleSheet,
   Dimensions,
-  Button,
+  ScrollView,
   Image,
   TouchableOpacity,
+  TextInput,
+  Button
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useValidation } from "react-native-form-validator";
-import { addWithRandomID } from "../DataBase/firestore";
 
-const NewGigScreen = ({ navigation }) => {
+const EditProfileScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
-  const [title, settitle] = useState("");
-  const [des, setdes] = useState("");
-  const [time, settime] = useState("");
-  const [booking, setbooking] = useState("");
+  const [designation, setdesignation] = useState("");
+  const [about, setabout] = useState("");
+  const [exp, setexp] = useState("");
+  const [patients, setpatients] = useState("");
+  const [rate, setrate] = useState("");
 
   const { validate, getErrorMessages } = useValidation({
-    state: { image, title, des, time, booking },
+    state: { image, designation, about, exp, patients, rate },
   });
-
-  const _onPressButton = () => {
-    validate({
-      image: { image: true },
-      title: { minlength: 3, maxlength: 25, required: true },
-      des: { minlength: 3, maxlength: 100, required: true },
-      time: { minlength: 3, maxlength: 25, required: true },
-      booking: { minlength: 3, maxlength: 100, required: true },
-    });
-    if (validate) {
-      // const data = {title:title,des:des,time:time,booking:booking}
-      const data = {Doctor_Image:"sdsads", Doctor_id:"usamaYAK1@outlook.com",Doctor_Designation:"Doctor", Title: title, Description: des, Time: time, Cost: booking };
-      addWithRandomID(data,navigation);
-
-    }
-  };
 
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -57,9 +41,23 @@ const NewGigScreen = ({ navigation }) => {
       setImage(_image.uri);
     }
   };
+
+
+  const _onPressButton = () => {
+    validate({
+      image: { required: true },
+      designation: { minlength: 3, maxlength: 25, required: true },
+      about: { minlength: 5, maxlength: 100, required: true },
+      experience: { required: true },
+      patients: { required: true },
+      rate: {required: true },
+    });
+  };
+
+
   return (
-    <ScrollView style={styles.maincontainer}>
-      <SafeAreaView>
+    <SafeAreaView>
+      <ScrollView>
         <View>
           <View style={styles.container}>
             {image && (
@@ -75,13 +73,14 @@ const NewGigScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
+
           <View style={styles.inputcontainer}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.textheading}>Gig Title</Text>
+              <Text style={styles.textheading}>Designation</Text>
               <TextInput
                 style={styles.textinput}
-                onChangeText={settitle}
-                value={title}
+                onChangeText={setdesignation}
+                value={designation}
               />
             </View>
             <View style={styles.styleBottom}></View>
@@ -89,11 +88,11 @@ const NewGigScreen = ({ navigation }) => {
 
           <View style={styles.inputcontainer}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.textheading}>Description</Text>
+              <Text style={styles.textheading}>About</Text>
               <TextInput
                 style={styles.textinput}
-                onChangeText={setdes}
-                value={des}
+                onChangeText={setabout}
+                value={about}
               />
             </View>
             <View style={styles.styleBottom}></View>
@@ -101,11 +100,11 @@ const NewGigScreen = ({ navigation }) => {
 
           <View style={styles.inputcontainer}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.textheading}>Timings</Text>
+              <Text style={styles.textheading}>Experience</Text>
               <TextInput
                 style={styles.textinput}
-                onChangeText={settime}
-                value={time}
+                onChangeText={setexp}
+                value={exp}
               />
             </View>
             <View style={styles.styleBottom}></View>
@@ -113,21 +112,33 @@ const NewGigScreen = ({ navigation }) => {
 
           <View style={styles.inputcontainer}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.textheading}>Booking Details</Text>
+              <Text style={styles.textheading}>Patients treated</Text>
               <TextInput
                 style={styles.textinput}
-                onChangeText={setbooking}
-                value={booking}
+                onChangeText={setpatients}
+                value={patients}
+              />
+            </View>
+            <View style={styles.styleBottom}></View>
+          </View>
+
+
+          <View style={styles.inputcontainer}>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.textheading}>Board Rating</Text>
+              <TextInput
+                style={styles.textinput}
+                onChangeText={setrate}
+                value={rate}
               />
             </View>
             <View style={styles.styleBottom}></View>
           </View>
           <Text style={styles.error}>{getErrorMessages()}</Text>
-
           <Button title="Save " onPress={_onPressButton} />
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -202,4 +213,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewGigScreen;
+
+export default EditProfileScreen;

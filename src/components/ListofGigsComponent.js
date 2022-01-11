@@ -5,6 +5,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
@@ -44,7 +45,7 @@ const DisplayGigsComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Gig Name</Text>
           </View>
 
-          <Text style={styles.textdata}>{data.title}</Text>
+          <Text style={styles.textdata}>{data.Title}</Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -58,7 +59,7 @@ const DisplayGigsComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Price</Text>
           </View>
 
-          <Text style={styles.textdata}>{data.booking} </Text>
+          <Text style={styles.textdata}>{data.Cost} </Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -72,7 +73,7 @@ const DisplayGigsComponent = ({ data, action }) => {
             <Text style={styles.texttitle}>Timings</Text>
           </View>
 
-          <Text style={styles.textdata}>{data.timing}</Text>
+          <Text style={styles.textdata}>{data.Time}</Text>
         </View>
       </View>
     </TouchableOpacity>

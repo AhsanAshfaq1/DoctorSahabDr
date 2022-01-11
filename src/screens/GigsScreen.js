@@ -8,16 +8,19 @@ import {
   ScrollView,
   Button,
   ActivityIndicator,
-  FlatList
+  FlatList,
 } from "react-native";
 import GigsComponent from "../components/ListofGigsComponent";
-import { getgigsdata } from "../DataBase/firestore";
+import { getdoctordata, getgigsdata } from "../DataBase/firestore";
 
 const GigsScreen = ({ navigation }) => {
   const [isLoading, setLoading] = React.useState(true);
   const [gigs, setgigs] = useState([]);
-
-  getgigsdata(setgigs ,setLoading)
+  const [doctor, setdoctor] = React.useState();
+  useEffect(() => {
+    getdoctordata(setdoctor);
+    getgigsdata(setgigs, setLoading);
+  }, []);
   if (isLoading) {
     return (
       <View
@@ -28,23 +31,28 @@ const GigsScreen = ({ navigation }) => {
           alignItems: "center",
         }}
       >
-        <ActivityIndicator size="large" color="blue" />
+        <ActivityIndicator />
         <Text style={{ fontSize: 32 }}>Loading</Text>
       </View>
     );
   }
 
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <FlatList
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        style={{ marginBottom: "35%" }}
         data={gigs}
-        renderItem={(e)=>
-          <GigsComponent data={e.item} action={()=>{navigation.navigate('ViewGigs',gigs)}}/>
-        } 
-      />   
-      </SafeAreaView>
-    </ScrollView>
+        renderItem={(e) => (
+          <GigsComponent
+            data={e.item}
+            action={() => {
+              navigation.navigate("ViewGig", { data: e.item, docdata: doctor });
+            }}
+          />
+        )}
+        keyExtractor={(data, index) => index.toString()}
+      />
+    </SafeAreaView>
   );
 };
 
