@@ -19,6 +19,7 @@ const DisplayBookingComponent = ({ data, action }) => {
         <View
           style={{
             justifyContent: "center",
+            paddingTop:20,
             paddingLeft: 10,
             flex: 1,
             height: 110,
@@ -97,10 +98,11 @@ const styles = StyleSheet.create({
   gigscontainer: {
     backgroundColor: "#f8f8f8",
     maxWidth: Dimensions.get("window").width,
-    height: 190,
+    height: 210,
     borderWidth: 0.9,
     borderRadius: 15,
     borderColor: "#cfcfcf",
+    marginTop:10,
     marginLeft: 20,
     marginRight: 20,
     marginVertical: 10,

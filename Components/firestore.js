@@ -88,7 +88,7 @@ export const SignIn = async (userEmail, userPass, setResponse, navigation) => {
         const user = userCredential.user;
         SaveLogin(user);
         if (user.emailVerified)
-          navigation.replace("Home", { Email: userEmail });
+          navigation.replace("Home", { Email: userEmail, MyDetails: user })
         else {
           navigation.navigate("Verification", { tempuser: user });
         }

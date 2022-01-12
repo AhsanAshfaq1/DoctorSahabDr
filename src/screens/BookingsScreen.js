@@ -48,8 +48,8 @@ const BookingsScreen = ({ navigation }) => {
           alignItems: "center",
         }}
       >
-        <ActivityIndicator size="large" color="blue" />
-        <Text style={{ fontSize: 28 }}>Checking Appointments</Text>
+        <ActivityIndicator />
+        <Text style={{ fontSize: 20 }}>Checking Appointments</Text>
       </View>
     );
   }

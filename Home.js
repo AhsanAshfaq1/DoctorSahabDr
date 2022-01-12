@@ -82,12 +82,15 @@ function BookingStackScreen() {
 }
 
 const ProfileStack = createStackNavigator();
-function ProfileStackScreen() {
+function ProfileStackScreen({ navigation, route }) {
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="Profile"
         component={ProfileScreen}
+        initialParams={{
+          MyDetails: route.params.MyDetails,
+        }}
         options={{
           tabBarLabel: "Profile",
           tabBarShowLabel: false,
@@ -99,12 +102,12 @@ function ProfileStackScreen() {
               }}
             >
               <Icon
-                name="logout"
-                type="material-community"
-                style={{ marginRight: "5%" }}
-                size={32}
-                color={"blue"}
-              />
+              style={{ marginRight: "5%" }}
+              name="sign-out-alt"
+              type="font-awesome"
+              color={"blue"}
+              size={32}
+            />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ color, size }) => (
@@ -117,13 +120,7 @@ function ProfileStackScreen() {
         component={EditProfile}
         options={{
           tabBarLabel: "Profile",
-          tabBarShowLabel: false,
-          headerRight: () => (
-            <Button
-              onPress={() => navigation.navigate("CreateGig")}
-              title="New"
-            />
-          ),
+          tabBarShowLabel: false
         }}
       />
     </ProfileStack.Navigator>
@@ -187,6 +184,7 @@ export function Tabs({ navigation, route }) {
       <Bottom_Tab.Screen
         name="Profile"
         component={ProfileStackScreen}
+        initialParams={{ navigation: navigation, MyDetails: route.params.MyDetails }}
         options={{
           tabBarLabel: "Profile",
           tabBarShowLabel: false,

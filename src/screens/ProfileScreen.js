@@ -2,8 +2,7 @@ import React from "react";
 import {Text,View, SafeAreaView, StyleSheet,Dimensions, ScrollView ,Image ,TouchableOpacity} from "react-native";
 
 
-const ProfileScreen = ({navigation}) => {
-
+const ProfileScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.container}> 
       <ScrollView>
@@ -12,11 +11,11 @@ const ProfileScreen = ({navigation}) => {
             style={styles.profilepic} 
             source={require('../../assets/image.jpg')}
           />
-          <Text style={styles.profilename}>Name</Text>
+          <Text style={styles.profilename}>Dr. {route.params.MyDetails.displayName}</Text>
           <View style={styles.holder}>
         <TouchableOpacity style={styles.btn} onPress={()=> navigation.navigate('EditProfile')}>
 
-          <Text style={styles.btntext}>Account</Text>
+          <Text style={styles.btntext}>Edit Account Details</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn}>
           <Text style={styles.btntext}>Help</Text>

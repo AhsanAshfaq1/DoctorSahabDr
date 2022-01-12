@@ -42,7 +42,7 @@ const GigsScreen = ({ navigation, route }) => {
         }}
       >
         <ActivityIndicator />
-        <Text style={{ fontSize: 32 }}>Loading</Text>
+        <Text style={{ fontSize: 20 }}>Loading</Text>
       </View>
     );
   }

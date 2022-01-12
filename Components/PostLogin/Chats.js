@@ -26,7 +26,7 @@ import { Send_Message, get_Chats } from "../Chating";
 const Messages = ({ route, navigation }) => {
   navigation.setOptions({
     headerTitle: (props) => (
-      <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }}>
+      <TouchableOpacity style={{ flexDirection: "row" ,marginLeft:-115,marginBottom:10}}>
         <Avatar size={48} rounded source={require("../../assets/dp.png")} />
         <Text style={MessagesStyles.headerAviImg}>{route.params.Name}</Text>
       </TouchableOpacity>
@@ -35,7 +35,7 @@ const Messages = ({ route, navigation }) => {
       <Icon
         name="chevron-left"
         type="feather"
-        color={"#5D19FC"}
+        // color={"#5D19FC"}
         size={32}
         onPress={() => {
           navigation.goBack();
@@ -113,8 +113,8 @@ const Messages = ({ route, navigation }) => {
           alignItems: "center",
         }}
       >
-        <ActivityIndicator size="large" color="blue" />
-        <Text style={{ fontSize: 32 }}>Loading Msgs</Text>
+        <ActivityIndicator  />
+        <Text style={{ fontSize: 20 }}>Loading Msgs</Text>
       </View>
     );
   }
