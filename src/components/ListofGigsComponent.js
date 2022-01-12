@@ -62,7 +62,7 @@ const DisplayGigsComponent = ({
               raised
               name="user-md"
               type="font-awesome"
-              color="#f50"
+              color="#226597"
               size={18}
             />
             <Text style={styles.texttitle}>Gig Name</Text>
@@ -76,7 +76,7 @@ const DisplayGigsComponent = ({
               raised
               name="coins"
               type="font-awesome"
-              color="#f50"
+              color="#226597"
               size={18}
             />
             <Text style={styles.texttitle}>Price</Text>
@@ -90,7 +90,7 @@ const DisplayGigsComponent = ({
               raised
               name="clock"
               type="font-awesome"
-              color="#f50"
+              color="#226597"
               size={18}
             />
             <Text style={styles.texttitle}>Timings</Text>

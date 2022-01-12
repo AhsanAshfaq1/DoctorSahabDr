@@ -32,7 +32,7 @@ const DisplayBookingComponent = ({ data, action }) => {
               raised
               name="procedures"
               type="font-awesome"
-              color="#f50"
+              color="#226597"
               size={18}
             />
             <Text style={styles.texttitle}>Patient Name</Text>
@@ -46,7 +46,7 @@ const DisplayBookingComponent = ({ data, action }) => {
               raised
               name="exclamation-triangle"
               type="font-awesome"
-              color="#f50"
+              color="#226597"
               size={18}
             />
             <Text style={styles.texttitle}>Problem</Text>
@@ -60,7 +60,7 @@ const DisplayBookingComponent = ({ data, action }) => {
               raised
               name="comment-medical"
               type="font-awesome"
-              color="#f50"
+              color="#226597"
               size={18}
             />
             <Text style={styles.texttitle}>Description</Text>
@@ -70,7 +70,7 @@ const DisplayBookingComponent = ({ data, action }) => {
         </View>
 
       </View>
-        <TouchableOpacity style={{alignSelf:"center",justifyContent:"center",margin:10,height:40,borderWidth:1,borderColor:"black",borderRadius:10,backgroundColor:"red"}} onPress={()=>action()}>
+        <TouchableOpacity style={{alignSelf:"center",justifyContent:"center",margin:10,height:40,borderWidth:1,borderColor:"black",borderRadius:10,backgroundColor:"#87C0CD"}} onPress={()=>action()}>
           <Text style={{padding:10}}>Start Chatting</Text>
         </TouchableOpacity>
     </View>

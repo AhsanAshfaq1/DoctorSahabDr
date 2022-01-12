@@ -105,8 +105,8 @@ function ProfileStackScreen({ navigation, route }) {
               style={{ marginRight: "5%" }}
               name="sign-out-alt"
               type="font-awesome"
-              color={"blue"}
-              size={32}
+              color={"#226597"}
+              size={25}
             />
             </TouchableOpacity>
           ),
@@ -134,7 +134,7 @@ export function Tabs({ navigation, route }) {
     <Bottom_Tab.Navigator
       initialRouteName="Bookings"
       screenOptions={{
-        tabBarActiveTintColor: "#e91e63",
+        tabBarActiveTintColor: "#113F67",
       }}
     >
       <Bottom_Tab.Screen
@@ -155,6 +155,7 @@ export function Tabs({ navigation, route }) {
         initialParams={{
           MyDetails: route.params.MyDetails,
         }}
+        
         options={{
           tabBarShowLabel: false,
           headerShown: false,

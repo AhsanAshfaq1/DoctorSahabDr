@@ -1,4 +1,4 @@
-import { React ,useState , useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -25,7 +25,7 @@ import { getAppointments } from "../DataBase/firestore";
 const BookingsScreen = ({ navigation }) => {
   const [AppointmentList, setAppointmentList] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     getAppointments(setAppointmentList, setLoading);
   }, []);
@@ -57,15 +57,13 @@ const BookingsScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ }}
+        style={styles.container}
         data={AppointmentList}
         renderItem={(e) => (
           <BookingComponent
             data={e.item}
             navigation={navigation}
-            action={() =>
-              navigation.navigate("Chat")
-            }
+            action={() => navigation.navigate("Chat")}
           />
         )}
         keyExtractor={(data, index) => index.toString()}
