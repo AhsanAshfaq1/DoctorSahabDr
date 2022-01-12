@@ -57,17 +57,14 @@ const BookingsScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <FlatList
-        style={{ marginBottom: "35%" }}
+        style={{ }}
         data={AppointmentList}
         renderItem={(e) => (
           <BookingComponent
             data={e.item}
             navigation={navigation}
             action={() =>
-              navigation.navigate("ViewBookings", {
-                data: e.item,
-                docdata: doctor,
-              })
+              navigation.navigate("Chat")
             }
           />
         )}

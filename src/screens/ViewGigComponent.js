@@ -44,8 +44,8 @@ const ViewGigComponent= ({route}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {/* <Image style={styles.profilepicture} source={data} /> */}
-        <Text style={styles.ProfileName}>{data.Doctor_Name}</Text>
-        <Text style={styles.designation}>{data.Doctor_Designation}</Text>
+        <Text style={styles.ProfileName}>{docdata.Name}</Text>
+        <Text style={styles.designation}>{docdata.Designation}</Text>
 
         <View style={styles.profileview}>
           <View style={styles.achievements}>
@@ -58,7 +58,7 @@ const ViewGigComponent= ({route}) => {
               size={30}
             />
             <Text style={styles.achievementtext}>Patients</Text>
-            <Text style={styles.achievementtext2}>{docdata.Patients}+</Text>
+            <Text style={styles.achievementtext2}>{docdata.Patient}+</Text>
           </View>
           <View style={styles.achievements}>
             <Icon
@@ -82,7 +82,7 @@ const ViewGigComponent= ({route}) => {
               size={30}
             />
             <Text style={styles.achievementtext}>Rating</Text>
-            <Text style={styles.achievementtext2}>Avg.{docdata.Rating}</Text>
+            <Text style={styles.achievementtext2}>Avg.{docdata.Ratings}</Text>
           </View>
         </View>
 
@@ -104,7 +104,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>About Doctor</Text>
           </View>
-          <Text style={styles.designation}>{data.Description}</Text>
+          <Text style={styles.designation}>{docdata.About}</Text>
         </View>
         <View>
           <View
@@ -124,7 +124,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>Timings</Text>
           </View>
-          <Text style={styles.designation}>{data.Time}</Text>
+          <Text style={styles.designation}>{data.data.Time}</Text>
         </View>
         <View>
           <View
@@ -144,7 +144,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>Address</Text>
           </View>
-          <Text style={styles.designation}>{data.Cost}</Text>
+          <Text style={styles.designation}>{data.data.Cost}</Text>
           <TouchableOpacity
             style={{
               width: 150,
@@ -180,7 +180,7 @@ const ViewGigComponent= ({route}) => {
             />
             <Text style={styles.ProfileName}>Bookings</Text>
           </View>
-          <Text style={styles.designation}>{data.Cost}</Text>    
+          <Text style={styles.designation}>{data.data.Cost}</Text>    
         </View>
       </ScrollView>
     </SafeAreaView>

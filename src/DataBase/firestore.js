@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SaveLogin } from "../Local Storage/AsyncStorage";
+import { uuidv4 } from 'uuid';
 import {
   deleteField,
   deleteDoc,
@@ -195,6 +196,13 @@ export const addWithRandomID = (data, navigation) => {
   }
 };
 
+export const updatedoc = (data,navigation) => {
+  const cityRef = doc(db, "Doctors",  auth.currentUser.email);
+  updateDoc(cityRef, data);
+  alert("Profile Updated Successfully");
+  navigation.pop();
+};
+
 // export const getgigsdata = async (setgigs,setloading) => {
 //   const snap = await getDoc(doc(db, "Doctors", "email"));
 //   if (snap.exists()) {
@@ -334,29 +342,38 @@ export const getClientDetails = async (
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-export const uploadImageAsync = async (uri) => {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function (e) {
-      console.log(e);
-      reject(new TypeError("Network request failed"));
-    };
-    xhr.responseType = "blob";
-    xhr.open("GET", uri, true);
-    xhr.send(null);
-  });
 
-  const fileRef = ref(getStorage(), uuid.v4());
-  alert("Hereeeeeeeeeeeeeeee");
-  const result = await uploadBytes(fileRef, blob);
-
-  // We're done with the blob, close and release it
-  blob.close();
-
-  return await getDownloadURL(fileRef);
+export const uploadImageAsync = (uri) => {
+  if(uri){
+    const fileExtension = uri.split('.').pop();
+    // let uuid1 = ; 
+    // const fileName = `${uuid1}.${fileExtension}`
+  }
 };
+
+
+// export const uploadImageAsync = async (uri) => {
+//   // Why are we using XMLHttpRequest? See:
+//   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+//   const blob = await new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.onload = function () {
+//       resolve(xhr.response);
+//     };
+//     xhr.onerror = function (e) {
+//       console.log(e);
+//       reject(new TypeError("Network request failed"));
+//     };
+//     xhr.responseType = "blob";
+//     xhr.open("GET", uri, true);
+//     xhr.send(null);
+//   });
+
+//   const fileRef = ref(getStorage(), uuid.v4());
+//   const result = await uploadBytes(fileRef, blob);
+
+//   // We're done with the blob, close and release it
+//   blob.close();
+
+//   return await getDownloadURL(fileRef);
+// };

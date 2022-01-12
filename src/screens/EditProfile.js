@@ -14,7 +14,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useValidation } from "react-native-form-validator";
-import { uploadImageAsync } from "../DataBase/firestore";
+import { uploadImageAsync, updatedoc } from "../DataBase/firestore";
 
 const EditProfileScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -40,7 +40,7 @@ const EditProfileScreen = ({ navigation }) => {
 
     if (!_image.cancelled) {
       setImage(_image.uri);
-      await uploadImageAsync(_image.uri);
+      uploadImageAsync(_image.uri);
     }
   };
 
@@ -49,10 +49,13 @@ const EditProfileScreen = ({ navigation }) => {
       image: { required: true },
       designation: { minlength: 3, maxlength: 25, required: true },
       about: { minlength: 5, maxlength: 100, required: true },
-      experience: { required: true },
+      exp: { required: true },
       patients: { required: true },
       rate: { required: true },
     });
+
+    const data = {Designation:designation,About:about,Experience:exp,Patient:patients,Ratings:rate }
+    updatedoc(data,navigation)
   };
 
   return (

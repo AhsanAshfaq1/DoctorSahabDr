@@ -5,17 +5,13 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Button
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const DisplayBookingComponent = ({ data,action }) => {
+const DisplayBookingComponent = ({ data, action }) => {
   return (
-    <TouchableOpacity
-      style={styles.gigscontainer}
-      onPress={() => {
-        action();
-      }}
-    >
+    <View style={styles.gigscontainer}>
       <View style={{ alignItems: "center", flexDirection: "row", flex: 1 }}>
         <View>
           {/* <Image style={styles.profilepicture} source={data[1]} /> */}
@@ -47,7 +43,7 @@ const DisplayBookingComponent = ({ data,action }) => {
             <Icon
               style={styles.infoicons}
               raised
-              name="business-time"
+              name="exclamation-triangle"
               type="font-awesome"
               color="#f50"
               size={18}
@@ -61,7 +57,7 @@ const DisplayBookingComponent = ({ data,action }) => {
             <Icon
               style={styles.infoicons}
               raised
-              name="money-bill-alt"
+              name="comment-medical"
               type="font-awesome"
               color="#f50"
               size={18}
@@ -71,8 +67,12 @@ const DisplayBookingComponent = ({ data,action }) => {
 
           <Text style={styles.textdata}>{data.Description}</Text>
         </View>
+
       </View>
-    </TouchableOpacity>
+        <TouchableOpacity style={{alignSelf:"center",justifyContent:"center",margin:10,height:40,borderWidth:1,borderColor:"black",borderRadius:10,backgroundColor:"red"}} onPress={()=>action()}>
+          <Text style={{padding:10}}>Start Chatting</Text>
+        </TouchableOpacity>
+    </View>
   );
 };
 
@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
     paddingLeft: 28,
   },
   gigscontainer: {
-    backgroundColor:"#f8f8f8",
+    backgroundColor: "#f8f8f8",
     maxWidth: Dimensions.get("window").width,
-    height: 150,
+    height: 190,
     borderWidth: 0.9,
     borderRadius: 15,
     borderColor: "#cfcfcf",

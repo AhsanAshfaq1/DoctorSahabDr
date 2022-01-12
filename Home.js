@@ -1,18 +1,13 @@
 import * as React from "react";
-import { Text, View, Button, TouchableOpacity } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { Button, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import GigsScreen from "./src/screens/GigsScreen";
 import NewGigScreen from "./src/screens/NewGigScreen";
-import EditGigScreen from "./src/screens/EditGigScreen";
 import ViewGigComponent from "./src/screens/ViewGigComponent";
-import ChatScreen from "./src/screens/ChatScreen";
-import CallScreen from "./src/screens/CallScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import BookingsScreen from "./src/screens/BookingsScreen";
 import { SignOut } from "./src/DataBase/firestore";
@@ -82,7 +77,6 @@ function BookingStackScreen() {
           },
         })}
       />
-      {/* <BookingStack.Screen name="ViewBookings" component={ViewBookings} /> */}
     </BookingStack.Navigator>
   );
 }
@@ -190,20 +184,6 @@ export function Tabs({ navigation, route }) {
           ),
         }}
       />
-
-      {/* <Bottom_Tab.Screen
-        name="Calls"
-        component={CallScreen}
-        options={{
-          tabBarShowLabel: false,
-          headerShown: false,
-          tabBarLabel: "Calls",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="phone" color={color} size={size} />
-          ),
-        }}
-      /> */}
-
       <Bottom_Tab.Screen
         name="Profile"
         component={ProfileStackScreen}
